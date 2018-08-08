@@ -26,7 +26,7 @@ public class MouseClickTarget : MonoBehaviour {
         Vector3 mpos = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mpos);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 20f, 1 << LayerMask.NameToLayer("Floor")))
+        if (Physics.Raycast(ray, out hit))
         {
             Vector3 target = hit.point;
             if (Vector3.Distance(target, setDestination) > resetDestinationDistance)
