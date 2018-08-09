@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AM1.Nav;
 
 /// <summary>
 /// マウスのある場所にターゲットを設定するテスト用クラスです。
