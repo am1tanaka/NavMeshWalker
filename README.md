@@ -143,6 +143,10 @@ navCon.SetDestination(target);
 
 スクリプトで移動を制御する場合、`Apply Root Motion`が悪さをする場合があるので、チェックを外しておくとよいでしょう。問題が起きたらチェックを戻してください。
 
+- SDユニティちゃんのアニメを利用する場合、表情変更のイベントを受け取る必要があります。エラーが出ないようにスタブメソッドを定義した`FaceCatcher.cs`を用意したので、`Demo/Scripts`フォルダーから、`Animator`コンポーネントをアタッチしているオブジェクトにドラッグ＆ドロップしてアタッチします
+
+![Set Face Catcher](Images/img14.png)
+
 以上で差し替え完了です。
 
 ![Changed Chr](Images/img09.png)
