@@ -33,7 +33,7 @@ namespace AM1.Nav
         [TooltipAttribute("ターン時の旋回速度"), SerializeField]
         float turnAngularSpeed = 1000f;
         [TooltipAttribute("スピードを落とす距離。目的地がこの距離以内になったら、旋回角度に応じた減速をする"), SerializeField]
-        float speedDownDistance = 1f;
+        float speedDownDistance = 0.5f;
         [TooltipAttribute("停止距離。この距離以下は移動しない"), SerializeField]
         float stopDistance = 0.01f;
 

@@ -66,28 +66,18 @@ Playを開始すると、マウスで指した場所に、SDユニティちゃ�
 
 ![NavMeshWalker Setting](Images/img02.png)
 
-### Nav Controller
 |項目|内容|
 |:-:|:--|
 |Walk Speed|歩く速度。大きくすると速くなります。|
 |Angular Speed|旋回する時の角速度です。大きくすると速くなります。|
 |Turn Angle|目的地がこの角度よりずれている場合、移動せずにその場で方向転換します。|
 |Turn Angular Speed|その場で方向転換する時の回転速度です。大きくすると速くなります。|
+|Speed Down Distance|目的地がこの距離より近い場合、旋回角度の大きさに応じて歩きを遅くします。|
+|Stop Distance|目的地がこの距離以内の場合は到着とみなします。|
 |Speed 2 Anim|移動速度とアニメーションの速度を調整します。大きくすると、移動速度に対して、アニメーションが速くなります。|
 |Stop Speed|移動がこの速度より遅くなったら、アニメーションを立ちアニメにします。|
 
-### Character Controller
-|項目|内容|
-|:-:|:--|
-|Slope Limit|登れる斜面の角度です。|
-|Step Offset|登れる段差の高さです。|
-|Skin Width|この大きさ分、他のオブジェクトにめり込むことができます。スムーズにすれ違うための設定です。あまり大きくすると地面にめり込んだりします。|
-|Min Move Distance|この距離以内の場合は移動させません。ぶるぶる震える現象を抑える設定です。|
-|Center|当たり判定の中心です。Heightをいじったら合わせて調整します。|
-|Radius|当たり半径です。NavMeshのRadiusより少し小さくしておくとスムーズに動きます。|
-|Height|キャラクターの高さです。NavMeshと同じ高さにするか、少し低くしておくとよいです。|
-
-必要に応じて調整してください。
+Character Controllerについては[こちら](https://docs.unity3d.com/jp/current/Manual/class-CharacterController.html)の公式マニュアルを参照ください。
 
 ## 4. 指定の場所を設定するスクリプト
 デフォルトの*NavMeshWalker*には、マウスで指した場所に移動を設定するデモスクリプトが設定されています。
@@ -178,8 +168,12 @@ Animatorを変更したい場合は、`Float`型の`Speed`パラメーターを�
 
 このパラメーターに、スクリプトからキャラクターの移動速度を渡すので、この値を使って*Standing*や*Walking*、必要なら*Running*を切り替えるようにしてください。
 
+# 制約
+NavMeshAgentは常に着地して移動するようになっているため、ジャンプや落下はできません。それらをやりたい場合は、着地しているかを判定して、空中の時はNavMeshAgentを無効にして、着地したら有効にするような制御が必要になります。
+
 # 参考・関連URL
 - [Unityマニュアル. ナビゲーションと経路探索](https://docs.unity3d.com/jp/current/Manual/Navigation.html)
+- [Unityマニュアル. Character Controllerマニュアル](https://docs.unity3d.com/jp/current/Manual/class-CharacterController.html)
 - <a href="http://monolizm.com/sab/pdf/%E7%AC%AC26%E5%9B%9E_%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E8%B3%87%E6%96%99(Unity%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E3%82%88%EF%BD%9ENavMesh%E5%9F%BA%E7%A4%8E%EF%BD%9E).pdf">monolizm LLC. Unityはじめるよ
 〜NavMesh基礎〜</a>
 - [UNITY-CHAN! OFFICIAL WEBSITE](http://unity-chan.com/)

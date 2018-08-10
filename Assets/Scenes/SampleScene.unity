@@ -409,21 +409,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114159398957834558, guid: 289daecd3be969540a0493914d96d459,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195062740425014954, guid: 289daecd3be969540a0493914d96d459,
-        type: 2}
-      propertyPath: m_StoppingDistance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 195062740425014954, guid: 289daecd3be969540a0493914d96d459,
-        type: 2}
-      propertyPath: m_AutoBraking
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 289daecd3be969540a0493914d96d459, type: 2}
   m_IsPrefabAsset: 0

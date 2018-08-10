@@ -4273,8 +4273,11 @@ MonoBehaviour:
   angularSpeed: 200
   turnAngle: 45
   turnAngularSpeed: 1000
+  speedDownDistance: 0.5
+  stopDistance: 0.01
   Speed2Anim: 1
   stopSpeed: 0.01
+  averageSpeed: 0.5
 --- !u!114 &114159398957834558
 MonoBehaviour:
   m_ObjectHideFlags: 1
