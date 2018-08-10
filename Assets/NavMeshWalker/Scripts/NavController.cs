@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 /// <summary>
 /// NavMeshAgentをうまいこと動かすクラス
-/// Ver0.9.0
+/// Ver0.9.1
 /// MIT License
 /// Copyright (C) 2018 YuTanaka
 /// 
@@ -25,7 +25,7 @@ namespace AM1.Nav
 
         [Header("移動")]
         [TooltipAttribute("歩く速度"), SerializeField]
-        float walkSpeed = 1.5f;
+        float walkSpeed = 2f;
         [TooltipAttribute("通常の旋回速度"), SerializeField]
         float angularSpeed = 200f;
         [TooltipAttribute("ターンする時の角度差"), SerializeField]
@@ -38,11 +38,27 @@ namespace AM1.Nav
         float Speed2Anim = 1f;
         [TooltipAttribute("停止とみなす速度"), SerializeField]
         float stopSpeed = 0.01f;
+        [TooltipAttribute("停止距離。この距離以下は移動しない"), SerializeField]
+        float stopDistance = 0.01f;
 
         NavMeshAgent agent;
         Animator anim;
         CharacterController chrController;
         Vector3 velocity;
+        Vector3 destination;
+
+        public bool IsReached
+        {
+            get
+            {
+                Vector3 dest = destination;
+                dest.y = 0f;
+                Vector3 pos = transform.position;
+                pos.y = 0f;
+                float dist = Vector3.Distance(destination, transform.position);
+                return dist <= stopDistance;
+            }
+        }
 
         private void Awake()
         {
@@ -62,6 +78,7 @@ namespace AM1.Nav
         /// <param name="pos">設定する座標です</param>
         public void SetDestination(Vector3 pos)
         {
+            destination = pos;
             agent.SetDestination(pos);
         }
 
@@ -95,8 +112,8 @@ namespace AM1.Nav
                 move.y = 0f;
                 spd = Mathf.Min(spd, move.magnitude);
 
-                //　角度を調査
-                if (spd > stopSpeed)
+                //　移動距離が停止距離より遠い場合、角度と移動設定
+                if (move.magnitude >= stopDistance)
                 {
                     float angle = Vector3.SignedAngle(transform.forward, move, Vector3.up);
                     float rot = angularSpeed * Time.deltaTime;

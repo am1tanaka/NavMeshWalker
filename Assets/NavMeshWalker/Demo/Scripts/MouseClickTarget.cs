@@ -29,11 +29,14 @@ public class MouseClickTarget : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            Vector3 target = hit.point;
-            if (Vector3.Distance(target, setDestination) > resetDestinationDistance)
+            if (!hit.collider.CompareTag("Player"))
             {
-                setDestination = target;
-                navCon.SetDestination(target);
+                Vector3 target = hit.point;
+                if (Vector3.Distance(target, setDestination) > resetDestinationDistance)
+                {
+                    setDestination = target;
+                    navCon.SetDestination(target);
+                }
             }
         }
     }
