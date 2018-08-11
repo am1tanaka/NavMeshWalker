@@ -37,7 +37,7 @@ ScenesフォルダーのSampleSceneをダブルクリックして開いて、Pla
 ## 1. パッケージのダウンロードと組み込み
 歩かせるゲームオブジェクトのプレハブを組み込みます。
 
-- [Releasesページ](https://github.com/am1tanaka/NavMeshWalker/releases)から、**NavMeshWalker@X.X.X.unitypackage**の最新版をダウンロードします
+- [Releasesページ](https://github.com/am1tanaka/NavMeshWalker/releases)から、**NavMeshWalker.?.?.?.unitypackage**の最新版をダウンロードします
 - プロジェクトにインポートします
 
 ## 2. NavMeshをベイク
