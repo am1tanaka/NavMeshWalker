@@ -15,6 +15,8 @@ NavMeshAgentの歩き方をCharacterControllerで制御します。
 
 Copyright (c) 2018 Yu Tanaka
 
+---
+
 # サンプルの実行方法
 ScenesフォルダーのSampleSceneをダブルクリックして開いて、Playします。
 
@@ -77,7 +79,7 @@ Playを開始すると、マウスで指した場所に、SDユニティちゃ�
 |Speed 2 Anim|移動速度とアニメーションの速度を調整します。大きくすると、移動速度に対して、アニメーションが速くなります。|
 |Stop Speed|移動がこの速度より遅くなったら、アニメーションを立ちアニメにします。|
 
-Character Controllerについては[こちら](https://docs.unity3d.com/jp/current/Manual/class-CharacterController.html)の公式マニュアルを参照ください。
+キャラクターが登れる斜面や段差については、*Character Controller*で設定します。Character Controllerについては[こちら](https://docs.unity3d.com/jp/current/Manual/class-CharacterController.html)の公式マニュアルを参照ください。
 
 ## 4. 指定の場所を設定するスクリプト
 デフォルトの*NavMeshWalker*には、マウスで指した場所に移動を設定するデモスクリプトが設定されています。
@@ -113,6 +115,14 @@ navCon.SetDestination(target);
 ```
 
 これで、スクリプトから移動先を制御できます。
+
+目的地に到着しているかは、以下で確認できます。
+
+```cs
+if (navCon.IsReached) {
+    // 到着している
+}
+```
 
 ## 5. キャラクターを差し替える
 キャラクターを差し替える手順です。デフォルトの*NavMeshWalker*オブジェクトは、子供にSDユニティちゃんのプレハブを持っています。
