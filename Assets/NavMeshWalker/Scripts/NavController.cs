@@ -5,15 +5,15 @@ using UnityEngine.AI;
 
 /// <summary>
 /// NavMeshAgentをうまいこと動かすクラス
-/// Ver0.9.1
+/// Ver0.9.2
 /// MIT License
 /// Copyright (C) 2018 YuTanaka
-///
+/// 
 /// - NavMeshをベイクします
 /// - 目的地をSetDestination()メソッドで渡してもらえれば、そこに向けて移動します
 /// - 当たり判定は、NavMeshAgentと、CharacterControllerの双方に設定します。CharacterControllerの半径はNavMeshAgentのものより1周り小さくしておくと引っかかりが少なくなります
 /// - 子供にAnimatorを持ったオブジェクトを設定。floatのSpeedプロパティに速度を渡すので、アニメの切り替えに使えます
-///
+/// 
 /// </summary>
 
 namespace AM1.Nav
@@ -58,6 +58,7 @@ namespace AM1.Nav
         {
             get
             {
+                destination.y = transform.position.y;
                 float dist = Vector3.Distance(destination, transform.position);
                 return dist <= stopDistance;
             }
@@ -165,7 +166,7 @@ namespace AM1.Nav
                 else
                 {
                     spd = 0f;
-                    move.Set(0, 0, 0);
+                    move = dest - transform.position;
                 }
             }
 
