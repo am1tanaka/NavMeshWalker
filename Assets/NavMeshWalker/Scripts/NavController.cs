@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 /// <summary>
 /// NavMeshAgentをうまいこと動かすクラス
-/// Ver0.9.2
+/// Ver0.9.3
 /// MIT License
 /// Copyright (C) 2018 YuTanaka
 /// 
@@ -58,9 +58,31 @@ namespace AM1.Nav
         {
             get
             {
-                destination.y = transform.position.y;
-                float dist = Vector3.Distance(destination, transform.position);
-                return dist <= stopDistance;
+                return DistanceXZ(LastCorner, transform.position) <= stopDistance;
+            }
+        }
+
+        /// <summary>
+        /// XZのみの距離を返します。
+        /// </summary>
+        /// <param name="src">元座標</param>
+        /// <param name="dst">先座標</param>
+        /// <returns>高さの差を考慮しない距離</returns>
+        public float DistanceXZ(Vector3 src, Vector3 dst)
+        {
+            src.y = dst.y;
+            return Vector3.Distance(src, dst);
+        }
+
+        public Vector3 LastCorner
+        {
+            get
+            {
+                if (agent.pathPending || agent.path.corners.Length == 0)
+                {
+                    return destination;
+                }
+                return agent.path.corners[agent.path.corners.Length - 1];
             }
         }
 
@@ -101,19 +123,16 @@ namespace AM1.Nav
             else
             {
                 // 次の目的座標を確認
-                Vector3 target = transform.position;
-                target.y = transform.position.y;    // yは無視
+                Vector3 target = LastCorner;
                 spd = walkSpeed * Time.deltaTime;
                 for (int i = 0; i < agent.path.corners.Length; i++)
                 {
                     target = agent.path.corners[i];
-                    if (Vector3.Distance(target, transform.position) >= spd)
+                    if (DistanceXZ(target, transform.position) >= spd)
                     {
                         break;
                     }
                 }
-                Vector3 dest = destination;
-                dest.y = transform.position.y;
 
                 // 移動方向と速度を算出
                 move = target - transform.position;
@@ -121,7 +140,7 @@ namespace AM1.Nav
                 float rot = angularSpeed * Time.deltaTime;
 
                 //　移動距離が目的地までの距離より遠い場合、角度と移動設定
-                if (Vector3.Distance(dest, transform.position) >= stopDistance)
+                if (!IsReached)
                 {
                     float angle = Vector3.SignedAngle(transform.forward, move, Vector3.up);
 
@@ -129,8 +148,8 @@ namespace AM1.Nav
                     if (Mathf.Abs(angle) > turnAngle)
                     {
                         // 最高速度を越えているのでターンのみ
-                        rot = turnAngularSpeed * Time.deltaTime;
-                        rot = Mathf.Min(Mathf.Abs(angle), rot);
+                        float rotmax = turnAngularSpeed * Time.deltaTime;
+                        rot = Mathf.Min(Mathf.Abs(angle), rotmax);
                         transform.Rotate(0f, rot * Mathf.Sign(angle), 0f);
                         move = Vector3.zero;
                         spd = 0f;
@@ -140,7 +159,7 @@ namespace AM1.Nav
                         // ターンはしない
 
                         // ゴール距離がスピードダウンより近い場合、角度の違いの分、前進速度を比例減速する
-                        if (Vector3.Distance(dest, transform.position) < speedDownDistance)
+                        if (DistanceXZ(LastCorner, transform.position) < speedDownDistance)
                         {
                             spd *= (1f - (Mathf.Abs(angle) / turnAngle));
                         }
@@ -166,7 +185,8 @@ namespace AM1.Nav
                 else
                 {
                     spd = 0f;
-                    move = dest - transform.position;
+                    move = LastCorner - transform.position;
+                    move.y = 0f;
                 }
             }
 
