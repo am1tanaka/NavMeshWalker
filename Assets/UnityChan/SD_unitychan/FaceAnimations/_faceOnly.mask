@@ -3,7 +3,7 @@
 --- !u!319 &101100000
 AvatarMask:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: _faceOnly
   m_Mask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
