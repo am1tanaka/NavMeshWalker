@@ -58,6 +58,10 @@ SDユニティちゃんを使う場合、以下ぐらいの設定が丁度よさ
 
 ![Bake result](Images/img01.png)
 
+ベイクしても水色のゾーンが作成されていない場合、足場が*Navigation Static*になっていない可能性があります。*Static*設定するのが手っ取り早いです。
+
+![static](Images/img15.png)
+
 ## 3. NavMeshWalkerの設定
 歩かせるゲームオブジェクトのプレハブ**NavMeshWalker**をシーンに配置します。
 
