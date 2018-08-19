@@ -11,16 +11,18 @@ NavMeshAgentの歩き方をCharacterControllerで制御します。
 <div><img src="http://unity-chan.com/images/imageLicenseLogo.png" alt="ユニティちゃんライセンス"><p>この作品は<a href="http://unity-chan.com/contents/license_jp/" target="_blank">ユニティちゃんライセンス条項</a>の元に提供されています</p></div>
 
 ## その他のスクリプトやデータについて
-[MIT License](LICENSE)
+[MIT License](LICENSE.md)
 
 Copyright (c) 2018 Yu Tanaka
 
 ---
 
 # サンプルの実行方法
-ScenesフォルダーのSampleSceneをダブルクリックして開いて、Playします。
+[こちら](https://am1tanaka.github.io/NavMeshWalker/Demo/index.html)でWebGLのデモを試せます。
 
 マウスでユニティちゃんを移動させたい先の床を指します。クリックは不要です。
+
+Unityで試す場合は、ScenesフォルダーのSampleSceneをダブルクリックして開いてPlayします。
 
 # 組み込み方
 プロジェクトへの組み込み方です。おおよそ、以下のような流れです。
@@ -37,7 +39,7 @@ ScenesフォルダーのSampleSceneをダブルクリックして開いて、Pla
 ## 1. パッケージのダウンロードと組み込み
 歩かせるゲームオブジェクトのプレハブを組み込みます。
 
-- [Releasesページ](https://github.com/am1tanaka/NavMeshWalker/releases)から、**NavMeshWalker.?.?.?.unitypackage**の最新版をダウンロードします
+- [Releasesページ](https://github.com/am1tanaka/NavMeshWalker/releases)から、最新版の**NavMeshWalker.?.?.?.unitypackage**をダウンロードします
 - プロジェクトにインポートします
 
 ## 2. NavMeshをベイク
