@@ -112,7 +112,7 @@ using AM1.Nav;
 public NavController Target;
 ```
 
-- 座標を設定するのは、`navCon`の`SetDestination()`メソッドに、目指す座標を渡します
+- 座標を設定するのは、`Target`の`SetDestination()`メソッドに、目指す座標を渡します
 
 ```cs
 Target.SetDestination(target);
@@ -189,6 +189,9 @@ Animatorを変更したい場合は、`Float`型の`Speed`パラメーターを�
 NavMeshAgentは常に着地して移動するようになっているため、ジャンプや落下はできません。それらをやりたい場合は、着地しているかを判定して、空中の時はNavMeshAgentを無効にして、着地したら有効にするような制御が必要になります。
 
 また、到着判定でY値を無視するようになっているので、立体交差があるようなマップだと正常に到着が判定できない可能性があります。
+
+# 不具合報告
+不具合がありましたら、[Issues](https://github.com/am1tanaka/NavMeshWalker/issues)にご報告いただければ幸いです。
 
 # 参考・関連URL
 - [Unityマニュアル. ナビゲーションと経路探索](https://docs.unity3d.com/jp/current/Manual/Navigation.html)
