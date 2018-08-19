@@ -4,7 +4,7 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: hair_mat
   m_Shader: {fileID: 4800000, guid: 235ca6f7bbc0ead4990f386a7ec24292, type: 3}
