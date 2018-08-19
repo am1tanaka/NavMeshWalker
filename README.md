@@ -2,7 +2,7 @@
 NavMeshAgentの歩き方をCharacterControllerで制御します。
 
 # 前提
-- Unity2018.1以降で動作確認
+- Unity2017.3以降で動作確認
 
 # ライセンス
 ## SDユニティちゃん
@@ -84,40 +84,38 @@ Playを開始すると、マウスで指した場所に、SDユニティちゃ�
 |Stop Distance|目的地がこの距離以内の場合は到着とみなします。|
 |Speed 2 Anim|移動速度とアニメーションの速度を調整します。大きくすると、移動速度に対して、アニメーションが速くなります。|
 |Stop Speed|移動がこの速度より遅くなったら、アニメーションを立ちアニメにします。|
+|Average Speed|アニメの速度を平均化するための係数。細かく旋回する時に立ち絵が挟まると不自然になるので、この値でこれまでの速度と新しい速度を平均化します。|
 
 キャラクターが登れる斜面や段差については、*Character Controller*で設定します。Character Controllerについては[こちら](https://docs.unity3d.com/jp/current/Manual/class-CharacterController.html)の公式マニュアルを参照ください。
 
 ## 4. 指定の場所を設定するスクリプト
-デフォルトの*NavMeshWalker*には、マウスで指した場所に移動を設定するデモスクリプトが設定されています。
+### マウスで指した場所に移動する動きの解除方法
+
+デフォルトの*NavMeshWalker*には、マウスで指した場所に移動を設定するデモのための**Mouse Click Target**スクリプトが設定されています。
 
 ![Mouse Click Target](Images/img13.png)
 
-デモ用なので、この動きが不要な場合は**Remove**して下さい。
+この動作が不要になったら**Remove**して下さい。
 
+### スクリプトで移動先を設定する方法
 スクリプトから移動先を設定する方法です。
 
-- *NavMeshWalker*に操作用のスクリプトをアタッチします
-- スクリプトの冒頭で、以下の`using`を追加します
+- 座標を設定するためスクリプトの冒頭で、以下の`using`を追加します
 
 ```cs
 using AM1.Nav;
 ```
 
-- アタッチしたスクリプトに、以下のような*NavController*のインスタンスを取得するコードを追加します
+- アタッチしたスクリプトに、*NavController*を保持する変数を宣言します。ここに、*Unity*のインスペクターで*NavMeshWalker*をドラッグ＆ドロップするなどして、指示先のインスタンスを設定します
 
 ```cs
-NavController navCon;
-
-private void Awake()
-{
-    navCon = GetComponent<NavController>();
-}
+public NavController Target;
 ```
 
-- 座標を設定するのは、`navCon`の`SetDestination()`メソッドに、目指す座標を渡します。
+- 座標を設定するのは、`navCon`の`SetDestination()`メソッドに、目指す座標を渡します
 
 ```cs
-navCon.SetDestination(target);
+Target.SetDestination(target);
 ```
 
 これで、スクリプトから移動先を制御できます。
@@ -125,10 +123,13 @@ navCon.SetDestination(target);
 目的地に到着しているかは、以下で確認できます。
 
 ```cs
-if (navCon.IsReached) {
+if (Target.IsReached) {
     // 到着している
 }
 ```
+
+## スクリプト例
+[こちら](https://github.com/am1tanaka/NavMeshWalker/blob/master/Assets/NavMeshWalker/Demo/Scripts/ClickDetector.cs)に、オブジェクトをクリックしたら、設定された場所にNavMeshWalkerオブジェクトを向かわせるスクリプトの例があります。
 
 ## 5. キャラクターを差し替える
 キャラクターを差し替える手順です。デフォルトの*NavMeshWalker*オブジェクトは、子供にSDユニティちゃんのプレハブを持っています。
@@ -182,10 +183,12 @@ Animatorを変更したい場合は、`Float`型の`Speed`パラメーターを�
 
 ![Speed](Images/img12.png)
 
-このパラメーターに、スクリプトからキャラクターの移動速度を渡すので、この値を使って*Standing*や*Walking*、必要なら*Running*を切り替えるようにしてください。
+スクリプトから、このパラメーターにキャラクターの移動速度を渡しています。この値を使って*Standing*や*Walking*、必要なら*Running*を切り替えるようにしてください。
 
 # 制約
 NavMeshAgentは常に着地して移動するようになっているため、ジャンプや落下はできません。それらをやりたい場合は、着地しているかを判定して、空中の時はNavMeshAgentを無効にして、着地したら有効にするような制御が必要になります。
+
+また、到着判定でY値を無視するようになっているので、立体交差があるようなマップだと正常に到着が判定できない可能性があります。
 
 # 参考・関連URL
 - [Unityマニュアル. ナビゲーションと経路探索](https://docs.unity3d.com/jp/current/Manual/Navigation.html)
